@@ -1,0 +1,412 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@PrudeXXX</title>
+    <link type="image/x-icon" rel="shortcut icon" href="/76ECy98rUWs.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            display: flex;
+            justify-content: center; /* Центрируем по горизонтали */
+        }
+        .container {
+            width: 700px; /* Ширина контейнера */
+            text-align: center; /* Центрирование текста */
+        }
+        #searchInput {
+            padding: 10px;
+            width: 100%; /* Ширина по 100% от родителя */
+            margin-bottom: 20px;
+        }
+        #results {
+            list-style-type: none;
+            padding: 0;
+            display: none; /* Изначально скрываем список результатов */
+        }
+        #results li {
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-top: 5px;
+            white-space: pre-wrap;
+        }
+        .tabs {
+            display: flex;
+            justify-content: center; /* Центрируем вкладки */
+            margin-bottom: 10px;
+        }
+        .tab {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        .tab.active {
+            background-color: #ffffff;
+        }
+        .content {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        .hidden {
+            display: none;
+        }
+        .links {
+            display: flex; /* Используем flexbox для кнопок */
+            justify-content: space-between; /* Равное расстояние между кнопками */
+            margin-bottom: 20px; /* Отступ снизу для кнопок */
+            flex-wrap: wrap; /* Позволяет кнопкам переноситься на новую строку, если не помещаются */
+        }
+        .button {
+            padding: 10px 15px;
+            text-decoration: none;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            flex: 1; /* Занимает равное пространство */
+            margin: 5px; /* Отступ между кнопками */
+            text-align: center; /* Центрируем текст кнопки */
+            min-width: 120px; /* Минимальная ширина кнопки */
+            max-width: 150px; /* Максимальная ширина кнопки */
+            box-sizing: border-box; /* Учитываем отступы и границы в ширине */
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        #inputArea {
+            margin-top: 20px;
+        }
+        #userInput {
+            width: 100%; /* Ширина поля ввода по 100% от родителя */
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        #saveButton {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #saveButton:hover {
+            background-color: #218838;
+        }
+        #dataTable {
+            margin-top: 20px; /* Отступ сверху для таблицы */
+            width: 100%; /* Ширина таблицы по 100% от родителя */
+            border-collapse: collapse; /* Схлопываем границы */
+        }
+        #dataTable th, #dataTable td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        #dataTable th {
+            background-color: #f2f2f2;
+        }
+        .deleteButton {
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+        .deleteButton:hover {
+            background-color: darkred;
+        }
+        .button1{ background-color: #020202;
+        color: #ffffff;}
+        .button2{ background-color:#9370DB;
+            color: #ffffff;}
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>@PrudeXXX</h1>
+
+    <!-- Переключатель стилей -->
+    <div>
+        <button onclick="setStyle(0)">Стандартный</button>
+        <button class="button1" onclick="setStyle(1)">Темный</button>
+        <button class="button2" onclick="setStyle(2)">Фиолетовый</button>
+    </div>
+    
+    <div class="links">
+        <a href="http://ms-hdweb001.bee.vimpelcom.ru/cs/ap/Multistart/mobile.php" class="button" target="_blank"> Мультистарт</a>
+        <a href="https://scriptmanager.vimpelcom.ru/" class="button" target="_blank">Script Menager</a>
+        <a href="http://dcc/Report/Show/30827" class="button" target="_blank">Дашборт</a>
+        <a href="http://fttb/" class="button" target="_blank">Help Desk</a>
+        <a href="https://yandex.ru/maps/50/perm/?ll=56.229441%2C58.010454&z=12" class="button" target="_blank">Яндекс карты</a>
+        <a href="https://teleopti.beeline.ru/TeleoptiWFM/AuthenticationBridge/?wtrealm=http%3A%2F%2Fsample-with-policyengine%2F&wctx=WsFedOwinState%3DlKnf3bi25ZdOxnhwRPbH2y5TUwlQXY6Ik6yop3YFKCZJkZzuF2Q9XH9j-rQudfECNX_39wWjgeIAOKjqnR-yVbeeW0KsvXG-oCy5zgKFMVQi7b0iiyKGLn9l9L4-MKVlzAq-L4ztndL7lTAZvXOakqHsJLw&wa=wsignin1.0&whr=urn%3AWindows" class="button" target="_blank">Сalibrio</a>
+        <a href="https://ms-hdweb001.bee.vimpelcom.ru/tarifnik/" class="button" target="_blank">Тарифный навигатор</a>
+        <a href="http://nkbs.vimpelcom.ru/faces/site/content/agent/view/documents/index.xhtml?id=14de6e27-2950-40cb-bfbb-eb97aacfaf5f&permTabId=c5ed05de-23d2-4a06-a495-0055112872bb&q=%D1%82%D0%B0%D1%80%D0%B8%D1%84+%D0%B0%D0%BF" class="button" target="_blank">Все о тарифе Up</a>
+        <a href="https://ms-hdweb001.bee.vimpelcom.ru/cs/sms_sender/allsmssender.php?n=%D0%A8%D0%9F%D0%94&l=1-%D1%8F%20%D0%BB%D0%B8%D0%BD%D0%B8%D1%8F%20%D0%BE%D0%B1%D1%81%D0%BB%D1%83%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F" class="button" target="_blank">Смс отправка</a>
+        <a href="http://ms-hdweb001.bee.vimpelcom.ru:3030/#/" class="button" target="_blank">Личный кабинет</a>
+    </div>
+
+    <div class="tabs">
+        <div class="tab active" data-content="content1">шаг 1</div>
+        <div class="tab" data-content="content2">шаг 2</div>
+        <div class="tab" data-content="content3">шаг 3</div>
+        <div class="tab" data-content="content4">шаг 4</div>
+        <div class="tab" data-content="content5">шаг 5</div>
+    </div>
+
+    <div id="content1" class="content">
+        <h2>Устанавливаем контакт</h2>
+        <p> 
+            К вам как можно обращаться по имени? <br>
+            Ставим верный канал продаж.<br>
+            Номер с которого ваш контактный ? <br>
+            Ранее нашими услугами пользовались по другим адресам?</p>
+    </div>
+
+    <div id="content2" class="content hidden">
+        <h2>Выявляем потребность</h2>
+        <p>Какой тариф хотели рассмотреть? <br> <br>
+            "Прошу прощения, обязан(а) озвучить, для вас сейчас действует предложение  по подключению домашних услуг совместно с мобильной связью, можно будет выгодно подключиться  разница в стоимости не большая, зато можно будет сэкономить. <br> <br>
+            " Есть возможность подключить единый пакет услуг,  благодаря чему  можно более удобно оплачивать, а так же экономить на оплате, подскажите может быть вы мобильной связью Билайн сейчас пользуетесь?" 
+        </p>
+    </div>
+
+    <div id="content3" class="content hidden">
+        <h2>Презентация</h2>
+        <p>Тариф "Up" - это тариф конструктор дает возможность вам управлять минутами и гб, и благодаря этому можно управлять ценою. Безлимитные мессенджеры( telegram,whatsApp и др. ),  безлимитный RuTube и Vk видео. К номеру можно будет подключить до 5 номеров билайн.<br> <br>   Также появится возможность установить бесплатное приложение билайн тв в котором можно будет смотреть бесплатно и безлимитно пакет кино и тв2 больше 200 каналов + более 10000 видеозаписей, благодаря бесплатной видеоколлеции.
+            <br> <br>
+Вам нравится предложение ?
+        </p>
+    </div>
+
+    <div id="content4" class="content hidden">
+        <h2>Отработка возражений:</h2>
+             
+        <p> <h3>Мне нужно посоветоваться?</h3> 
+            Когда вы хотите решить какой-то вопрос, вы обращаетесь к профессионалу, а не к специалисту из другой сферы, верно? В данном случае я являюсь экспертом, и лучше обсудите все вопросы со мной, чтобы не было никаких сомнений.
+            <h3>Дорого! </h3>
+            А с чем сравниваете?
+            Вы не укладываетесь в бюджет или есть другая причина?
+            <h3>У конкурентов дешевле!</h3>  
+            Вы знаете, честно скажу, да. Но у них есть ряд подводных камней:  отсутствие скидок, ремонт кабеля платный и тд. В итоге общая стоимость получится даже больше.
+            <h3>  Мне надо подумать!</h3>   
+            Понимаю, что предложение оказалось неожиданным , при этом я хотел бы помочь Вам принять решение, так как владею полной информацией о тарифе и могу ответить на любые вопросы,если есть сомнения давайте обсудим.
+            Понимаю, важно принять взвешенное решение, и при этом условия только лучше делаем, поэтому предлагаю вместе обсудить вашу выгоду и увидеть преимущества.<br> <br> 
+            <h3> У меня безлимитный инет</h3> 
+            «ИО, согласен(на), что очень важно иметь выгодный тарифный план, но возможно вы расходуете именно столько инета и минут сколько будет в новом тарифе. Чтобы вам было комфортно, давайте подберём вам оптимальный/аналогичный/комплексный тариф прямо сейчас»
+            <h3> Мне не нужна вторая сим карта!</h3>  
+            Вторая сим карта может пригодится к примеру для регистрации новых аккаунтов(вк, одноклассники, авито и тд).
+            Да и к тому же будет возможность протестировать сим карту, и если связь окажется лучше, то можете в любое время перейти со своим номером в компанию.</p>
+    </div>
+
+    <div id="content5" class="content hidden">
+        <h2>Закрытие сделки</h2>
+        <p>1. Подключение бесплатное/платное. <br>
+            2. За час заранее ожидайте звонок от сервис инженера. <br>
+            3. Укладку кабеля услугу не оказываем. <br>
+            4. Паспорт обязательно! <br>
+            5. Уточнить доп номер. <br> 
+            Еще раз все перепроверь.( ГП, 100р mnp, 100р стоимость сим карты.). <br> <br>
+
+            Имя, благадарю вас за ваш выбор,всего доброго!</p>
+    </div>
+    
+    <br>
+    <input type="text" id="searchInput" placeholder="Поиск...">
+    <ul id="results"></ul>
+
+    <div id="inputArea">
+        <input type="text" id="userInput" placeholder="Напишите что-то...">
+        <button id="saveButton">Сохранить</button>
+    </div>
+
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Сохраненная информация</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+</div>
+
+<script>
+    const searchInput = document.getElementById('searchInput');
+    const results = document.getElementById('results');
+    const tabs = document.querySelectorAll('.tab');
+    const contents = document.querySelectorAll('.content');
+    const userInput = document.getElementById('userInput');
+    const saveButton = document.getElementById('saveButton');
+    const tableBody = document.getElementById('tableBody');
+
+    // Массив с текстами для поиска
+    const data = [
+        "Клиент ТТК:\n1. Создай стандартную заявку на подключение (при выборе квартиры укажи номер квартиры+000. Если у клиента квартира 7, то сделай номер квартиры 7000).\n2.  Переведи в статус Позвонить клиенту с таймером + 7 дней. В комментарии укажи, что клиент расторг договор с ТТК/ЗТ, но числится в ХД активным. Укажи фактический номер квартиры клиента. Необходима проверка.\n3. Дополнительно на договоре создай заявку «Offline обработка» перевести на ответственных Очереди ЦПК/Обзвон – требует уточнения. В заявке укажи, что клиент расторг договор с ТТК/ЗТ, но числится в ХД активным. Необходима проверка.",
+
+        "Заявка на перерасчет:\n1.Offline обработка\n2.Очередь цпк .\n3.Исходящий обзвон",
+
+        "Документ иностранных граждан:\n • иностранный паспорт.Кроме того, при заключении Договора с Абонентом с иностранным гражданином необходимо запросить*:\n• документ, подтверждающий регистрацию по месту пребывания;\n• разрешение на временное проживание (как документ, подтверждающий право иностранного гражданина временно проживать в РФ до получения вида на жительство), которое оформляется в виде отметки в документе, удостоверяющем личность иностранного гражданина;\n•или\n• вид на жительство (как документ, подтверждающий право иностранного гражданина постоянно проживать в РФ). Вид на жительство выдается сроком на 5 лет.\n•* если клиент его предъявить не может (независимо от причины), то записывается со слов клиента адрес проживания на территории РФ.",
+
+        "Закон :\n1. СФ: «ИО, размещение оборудования для оказания услуг требует времени и ресурсов со стороны компании, все дома одновременно подключить, к сожалению, невозможно. Билайн подключает новые дома к сети в соответствии с планом подключений. Предлагаю сформировать заявку (ЖПД)  и с Вами свяжутся, когда появится возможность подключения».\nПри требовании клиента заключить с ним договор: « ИО, заключение договора с абонентом, как и ранее, возможно в случае наличия у оператора связи технической возможности для оказания услуг, и оператор связи имеет право отказать в заключении договора об оказании услуг связи при отсутствии технической возможности (п.26 Правил оказания услуг связи по передаче данных).",
+        
+        "You tube:\n1. фраза ключевая: Сейчас у абонентов разных операторов могут возникать сложности с работой YouTube.Со стороны билайна ограничений нет и, если другие сайты и приложения загружаются без проблем, значит с интернетом всё в порядке. \nЕсли клиента не устраивает ответ:Альтернативная фраза, если клиент не воспринял ответ и спрашивает тоже самое:  Да, YouTube сейчас может работать нестабильно. Со стороны билайна доступ к платформе не ограничивается. Если у вас работают другие сервисы, например, поисковик браузера, Вконтакте, Госуслуги, значит с доступом в интернет всё хорошо. \n2. СФ, если клиент сообщает, что не работает именно у него: Проблема с загрузкой YouTube не только у вас, но и у абонентов других операторов. Мы не ограничиваем доступ к сервису и вместе с вами ждём, когда он заработает",
+
+        "Переезд :\n 1) мы делаем новое подключение в другом городе, если клиент сам не интересуется возможностью самостоятельно сделать заявку\n 2)  Клиент  самостоятельно может оформить заявку на переезд в МП  \n3) если клиент не может разобраться - новое подключение.\n)  Правила заведения interaction НА входе интеракция - Помощь 1-ой линии. В мио - дожим - действующий - переезд. НА обратке - дозвон - тех фин",
+
+        "Авто перезвон :\n1. И озвучивает стандартную фразу «Здравствуйте. Меня зовут Имя. Билайн. Вы нам звонили и не дождались ответа оператора. Чем я могу Вам помочь»\n2. Правила заведения interaction Другое./Перезвон сорвавшемуся клиенту/(Недозвон//Не удобно говорить/Вопрос не актуален)",
+        "Отказом считать:\n - Мат и ОР со стороны клиента.\n- Длительная командировка ( Более 1 недели)\n- Если  в КВ ремонт подключение актуально через 2 месяц.\n- Подключил другого провайдера.\n- Съехали с адреса/не живем.",
+
+        "USB модем :\n1. Имя клиента, рекомендую обратиться в офис билайн и приобрести наш USB-модем. Подробную информацию о стоимости, тарифах и специальных акциях вы можете уточнить непосредственно в самом офисе или на нашем сайте.\nЕсли клиент настаивает в консультации его по вопросам стоимости сим/ оборудования/ ТП и прочее, требует перевести на соответствующий отдел, используй СФ: Имя Клиента, Вы можете оформить заказ и задать вопросы по работе с интернет-магазином по телефону 8 800 725-5-725. ",
+
+        "Подключить дом/Председатель:\n1.Если дом не подключен и обращается просто клиент: СФ Очень приятно, что вы желаете пользоваться нашими услугами домашнего интернета и телевидения. В случае, если от вас и ваших соседей будет подано коллективное заявление в вашу управляющую компанию, то ответственное лицо от управляющей компании сможет обратиться к нам с вопросом о возможности подключения дома. \n2. Если уже звонит председатель, то При обращении председателя ТСЖ или другого ответственного лица (не клиента) с вопросом о подключении дома (установка в дом оборудования “Билайн”) сотруднику необходимо написать письмо на ГПЯ  obzvon@beeline.ru (в адресной строке Outlook подписан «Исходящий обзвон ДОК»). В письме: указать адрес, номер, должность, фио. ",
+        "Дублирование/статус:\n1. Назначена в график - дублировать нельзя\n2. Позвонить клиенту: Заявка никогда не назначалась в график - 7 суток + 1 минута \nЗаявка  назначалась в график - 14 суток + 1 минута \n3. Мусор и Отказ: Менее 4 дней с даты смены статуса заявки \n4. Проблемное подключение : 30 дней +  1 мин и более с даты статуса заявки ",
+        // "C++ :\n1. высокопроизводительный\n2. системы",
+    ];
+
+    // Функция для отображения результатов поиска
+    function filterResults() {
+        const query = searchInput.value.toLowerCase();
+        results.innerHTML = ''; // Очистить предыдущие результаты
+
+        if (query === '') {
+            results.style.display = 'none'; // Скрыть список результатов, если ничего не введено
+            return;
+        }
+
+        const filteredData = data.filter(item => item.toLowerCase().includes(query));
+
+        filteredData.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = item;
+            results.appendChild(li);
+        });
+
+        // Показываем список результатов, если есть найденные элементы
+        results.style.display = filteredData.length > 0 ? 'block' : 'none';
+    }
+
+    // Обработчик события для поиска
+    searchInput.addEventListener('input', filterResults);
+
+    // Обработчик кликов по вкладкам
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const contentId = tab.getAttribute('data-content');
+
+            // Скрыть все содержимое и удалить класс active у всех вкладок
+            contents.forEach(content => content.classList.add('hidden'));
+            tabs.forEach(t => t.classList.remove('active'));
+
+            // Показать выбранное содержимое и установить вкладку в активное состояние
+            document.getElementById(contentId).classList.remove('hidden');
+            tab.classList.add('active');
+        });
+    });
+
+    // Функция для сохранения информации в таблице
+    function saveData() {
+        const value = userInput.value.trim();
+        if (value) {
+            // Добавляем в таблицу
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${value}</td>
+                <td><button class="deleteButton" onclick="deleteData(this)">Удалить</button></td>
+            `;
+            tableBody.appendChild(row);
+
+            // Сохраняем в localStorage
+            const savedData = JSON.parse(localStorage.getItem('savedData')) || [];
+            savedData.push(value);
+            localStorage.setItem('savedData', JSON.stringify(savedData));
+
+            // Очищаем поле ввода
+            userInput.value = '';
+        }
+    }
+
+    // Функция для удаления данных
+    function deleteData(button) {
+        const row = button.parentElement.parentElement; // Получаем родительскую строку
+        const value = row.cells[0].innerText; // Получаем текст из первой ячейки
+
+        // Удаляем строку
+        tableBody.removeChild(row);
+
+        // Обновляем localStorage
+        let savedData = JSON.parse(localStorage.getItem('savedData')) || [];
+        savedData = savedData.filter(item => item !== value); // Удаляем значение из массива
+        localStorage.setItem('savedData', JSON.stringify(savedData)); // Сохраняем обновленный массив
+    }
+
+    // Обработчик нажатия на кнопку "Сохранить"
+    saveButton.addEventListener('click', saveData);
+
+    // Функция для загрузки сохраненных данных при загрузке страницы
+    function loadSavedData() {
+        const savedData = JSON.parse(localStorage.getItem('savedData')) || [];
+        savedData.forEach(item => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${item}</td>
+                <td><button class="deleteButton" onclick="deleteData(this)">Удалить</button></td>
+            `;
+            tableBody.appendChild(row);
+        });
+    }
+
+    // Загружаем данные при инициализации
+    loadSavedData();
+
+    // Функция для переключения стилей
+    function setStyle(style) {
+        localStorage.setItem('selectedStyle', style); // Сохраняем выбранный стиль в localStorage
+        applyStyle(style);
+    }
+
+    function applyStyle(style) {
+        const body = document.body;
+
+        if (style === 0) { // Стандартный
+            body.style.color = '';
+            body.style.backgroundColor = '#E6E6FA';
+            Array.from(document.querySelectorAll('.button')).forEach(btn => {
+                btn.style.backgroundColor = '#007BFF';
+                btn.style.color = 'white';
+            });
+        } else if (style === 1) { // Темный
+            body.style.color = 'gray';
+            body.style.backgroundColor = 'black';
+            Array.from(document.querySelectorAll('.button')).forEach(btn => {
+                btn.style.backgroundColor = 'gray';
+                btn.style.color = 'black';
+            });
+        } else if (style === 2) { // Фиолетовый
+            body.style.color = 'black ';
+            body.style.backgroundColor = '#9370DB';
+            Array.from(document.querySelectorAll('.button')).forEach(btn => {
+                btn.style.backgroundColor = 'violet';
+                btn.style.color = 'black ';
+            });
+        }
+    }
+
+    // Загружаем выбранный стиль при инициализации
+    window.onload = function () {
+        const selectedStyle = localStorage.getItem('selectedStyle');
+        if (selectedStyle !== null) {
+            applyStyle(Number(selectedStyle)); // Применяем сохраненный стиль
+        }
+    };
+</script>
+
+</body>
+</html>
